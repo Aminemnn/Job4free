@@ -15,7 +15,6 @@ class Poste extends Model
         'image',
         'price',
         'description',
-        'etat',
         'user_id',
         'name_user',
         'img_user',

@@ -22,7 +22,7 @@ class addskills extends Controller
         $skill->user_id=Auth::user()->id;
         $skill->user_name=Auth::user()->name;;
         $skill->save();
-        return back()->with("status","Skill added successfully !");
+        return redirect()->back()->with("order_success","Skill added successfully !");
     }
     public function update(Request $request){
         $id=$_POST['update'];

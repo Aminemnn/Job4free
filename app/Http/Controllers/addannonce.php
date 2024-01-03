@@ -50,6 +50,7 @@ $nb_prop=$request->input('nb_prop');
             $annonce->id_user=Auth::user()->id;
             $annonce->name_user=Auth::user()->name;
             $annonce->img_user=Auth::user()->image;
+            $annonce->views=0;
             $annonce->save();
         return back()->with("status", "Data Save successfully!");
     }

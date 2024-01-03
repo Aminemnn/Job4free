@@ -31,7 +31,10 @@
     <link rel="stylesheet" href="{{asset('homeAssets/css/owl.carousel.min.css"')}}">
     <link href="{{asset('homeAssets/css/owl.theme.default.min.css')}}" rel="stylesoeet">
     <link  href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen" rel="stylesheet">
-
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <style>
         .material-symbols-outlined {
             font-variation-settings:
@@ -61,7 +64,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse animate__animated animate__backInRight" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="index.html">Home</a>

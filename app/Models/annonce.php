@@ -23,6 +23,7 @@ class annonce extends Model
         'propostion',
       'id_user',
       'name_user',
-        'img_user'
+        'img_user',
+        'views'
     ];
 }

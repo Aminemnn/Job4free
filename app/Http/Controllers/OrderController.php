@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\NewOrder;
 
+use App\Models\notiffication;
 use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class OrderController extends Controller
             ->where('id_projet', $request->input('id_projet'))
             ->first();
         if ($existing_order) {
-            return redirect()->back()->with('Order-error', 'You have already submitted an order for this project.');
+            return redirect()->back()->with('order_error', 'You have already submitted an order for this project.');
         }else {
             $propostion=DB::table('annonces')->select('propostion')->where('id',$request->input('id_projet'))->get();
             $json=json_decode($propostion,true);
@@ -43,8 +44,16 @@ class OrderController extends Controller
             $order->phone_user=Auth::user()->phone;
             $order->etat="Inprogress";
             $order->save();
+            $notification=new notiffication();
+            $notification->id_expediteur=Auth::user()->id;
+            $notification->name_expediteur=Auth::user()->name;
+            $notification->img_expedietur=Auth::user()->image;
+            $notification->id_destinateur=$request->input('id_user');
+            $notification->message='New Proposal Received From '.Auth::user()->name;
+            $notification->read='false';
+            $notification->save();
             DB::table('annonces')->where('id',$request->input('id_projet'))->update(['propostion'=>$filname+1]);
-            return redirect()->back()->with('Order-success', 'Order created successfully!');
+            return redirect()->back()->with('order_success', 'Order created successfully!');
         }
     }
 

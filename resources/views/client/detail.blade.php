@@ -514,12 +514,7 @@
                                 <div class="lpa-title">
                                     <h5><a href="#">Etat</a></h5>
                                 </div>
-                                <div class="lpa-meta">
-                                    <a class="name" href="#">
-                                        {{$annonce->first()->etat}}
-                                    </a>
 
-                                </div>
                             </div>
                         </div>
                     </div>

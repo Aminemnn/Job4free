@@ -42,7 +42,6 @@ class contrat extends Model
         'payment_details',
         'card_holder_name',
         'number_card',
-
-
+        'cancel'
     ];
 }

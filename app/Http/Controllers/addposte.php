@@ -30,7 +30,6 @@ class addposte extends Controller
         $image->move('uploads/poste',$filename);
         $poste->image=$filename;
         $poste->description=$request->input('description');
-        $poste->etat=$request->input('etat');
         $poste->user_id=Auth::user()->id;
         $poste->name_user=Auth::user()->name;
         $poste->img_user=Auth::user()->image;

@@ -483,29 +483,25 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js
 
                         <div class="custom-block-info">
                             <h5 class="mb-2">
-                                <a href="detail-page.html">
-                                    Vintage Show
+                                <a href="{{route('detailposte',['id'=>$annonces->id])}}">
+                                    {{$annonces->title}}
                                 </a>
                             </h5>
 
                             <div class="profile-block d-flex">
                                 <img src="{{asset('../../../uploads/photouser/'.$annonces->img_user)}}" class="profile-block-image img-fluid" alt="">
-                                <p>{{$annonces->name_user}}</p>
+                                <p>{{$annonces->name_user}}
+                                <strong>{{$annonces->bio_user}}</strong></p>
                             </div>
 
-                            <p class="mb-0">{{$annonces->description}}</p>
+                            <p class="mb-0" style="position: relative;right: 13px;top: 13px">{{$annonces->description}}</p>
 
+                            <button type="button" class="btn btn-warning" style="margin-top: 23px">{{$annonces->category}}</button>
+                            <button type="button" class="btn btn-warning" style="margin-top: 23px">{{$annonces->sous_category}}</button>
+                           <hr>
                             <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                <a href="#" class="bi-headphones me-1">
-                                    <span>100k</span>
-                                </a>
-
-                                <a href="#" class="bi-heart me-1">
-                                    <span>2.5k</span>
-                                </a>
-
-                                <a href="#" class="bi-chat me-1">
-                                    <span>924k</span>
+                                <a style="color: #a8ccfb">
+                                    <span style="color: black"><span style="color: black;font-family: 'Trebuchet MS';font-size: small">Starting At :</span><i class="fa-solid fa-dollar-sign" style="color: #0983b7"></i>{{$annonces->price}}</span>
                                 </a>
                             </div>
                         </div>
@@ -535,9 +531,10 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js
                                     <input type="hidden" name="sous_category" value="{{$annonces->sous_category}}">
                                     <input type="hidden" name="image" value="{{$annonces->image}}">
                                     <input type="hidden" name="price" value="{{$annonces->price}}">
-                                    <input type="hidden" name="etat" value="{{$annonces->etat}}">
                                     <input type="hidden" name="description" value="{{$annonces->description}}">
                                     <input type="hidden" name="user_id" value="{{$annonces->user_id }}">
+                                    <input type="hidden" name="name_freelancer" value="{{$annonces->name_user}}">
+                                    <input type="hidden" name="img_freelancer" value="{{$annonces->img_user}}">
                                     <button type="submit" id="favorite-btn"><i class="fa-solid fa-heart-o animate__animated animate__bounceIn" style="font-size: 26px;color: darkgrey"></i></button>
                                 </form>
                             @endif
@@ -581,10 +578,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js
                                     })
                                 </script>
                             @endif
-
-                            <a href="{{route('detailposte',['id'=>$annonces->id])}}" style="margin-top: 13px">
-                                <i class="fa-solid fa-circle-info" style="font-size: 26px;"></i>
-                            </a>
                         </div>
                     </div>
                 </div>

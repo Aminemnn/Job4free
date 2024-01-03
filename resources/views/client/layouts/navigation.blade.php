@@ -7,9 +7,8 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Horizontal Layout | Velzon - Admin & Dashboard Template</title>
+    <title>Job4Free| client</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset('FreeAssets/images/favicon.ico')}}">
@@ -18,17 +17,23 @@
     <link href="{{asset('FreeAssets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon"  href="{{asset('FreeAssets/images/favicon.ico')}}">
+    <!-- plugin css -->
+    <link href="{{asset('FreeAssets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- Layout config Js -->
 
     <!-- Bootstrap Css -->
-
+    <link href="{{asset('FreeAssets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
     <link href="{{asset('FreeAssets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{asset('FreeAssets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{asset('FreeAssets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -422,10 +427,7 @@
                                 </div>
 
                             </div>
-                            @php
-                                $user=Auth::user()->id;
-                                $notify=DB::table('notiffications')->where("id_destinateur",$user)->get();
-                            @endphp
+
                             <div class="tab-content position-relative" id="notificationItemsTabContent">
                                 <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
                                     <div data-simplebar  style="max-height: 300px;" class="pe-2">
@@ -1703,7 +1705,7 @@
                 }
             });
         });
-    },1000);
+    },3000);
 </script>
 <script>
     setInterval(function () {
@@ -1725,7 +1727,7 @@
                 }
             });
         });
-    },1000);
+    },3000);
 </script>
 <script>
     setInterval(function () {
@@ -1768,7 +1770,7 @@
                 }
             });
         });
-    },1000);
+    },3000);
 </script>
 <script>
     setInterval(function () {
@@ -1790,7 +1792,7 @@
                 }
             });
         });
-    },1000);
+    },3000);
 
 </script>
 <script>

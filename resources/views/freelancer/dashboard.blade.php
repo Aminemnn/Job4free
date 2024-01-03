@@ -476,11 +476,12 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js
                         <div class="custom-block d-flex">
                             <div class="custom-block-info">
 
-                                <h5 class="mb-2">
-                                    <a href="detail-page.html">
+                                <h4 class="mb-2">
+                                    <a href="{{route('detailannonce',['id'=>$annonces->id])}}">
                                         {{$annonces->title}}
                                     </a>
-                                </h5>
+                                </h4>
+                                <p class="mb-0" style="position: relative;right: 13px;">{{$annonces->price_categorie}} - {{$annonces->type_price}} - <span class="badge badge-soft-info mb-3 fs-12"><i class="ri-eye-line me-1 align-bottom"></i> {{$annonces->views}} people views this</span></p>
                                 <div class="profile-block d-flex">
                                     <img src="{{asset('../../../uploads/photouser/'.$annonces->img_user)}}" class="profile-block-image img-fluid" alt="">
                                     <p style="position: relative; right: 13px;top: 2px;display: inline-flex;">
@@ -490,19 +491,18 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js
                                         </svg>
                                     </p>
                                 </div>
-                                <p class="mb-0" style="position: relative;right: 13px;top: 5px">{{$annonces->description}}</p>
+                                <p style="margin-left: 64px;margin-bottom: 0px;margin-top: -16px">
+                                    {{$annonces->created_at}}
+                                </p>
+                                <p class="mb-0" style="position: relative;right: 13px;top: 10px"><strong>{{$annonces->description}}</strong></p>
+
+                                <p class="mb-0" style="position: relative;right: 13px;top: 10px">Proposals: <span><strong>{{$annonces->nombre_proposition}}</strong></span></p>
+                                <button type="button" class="btn btn-warning" style="margin-top: 23px">{{$annonces->catgorie}}</button>
+                                <button type="button" class="btn btn-warning" style="margin-top: 23px">{{$annonces->sous_categorie}}</button>
+                                <hr>
                                 <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                    <a href="#" class="fa-solid fa-patch-check me-1" style="color: #a8ccfb">
-                                        <span>120k</span>
-                                    </a>
-                                    <a href="#" class="fa-solid fa-heart me-1" style="color: #a8ccfb">
-                                        <span>42.5k</span>
-                                    </a>
-                                    <a href="#" class="fa-solid fa-comment me-1" style="color: #a8ccfb">
-                                        <span>11k</span>
-                                    </a>
-                                    <a href="#" class="fa-solid fa-download" style="color: #a8ccfb">
-                                        <span>50k</span>
+                                    <a style="color: #a8ccfb">
+                                        <span style="color: black"><span style="color: black;font-family: 'Trebuchet MS';font-size: small">Starting At :</span><i class="fa-solid fa-dollar-sign" style="color: #0983b7"></i>{{substr($annonces->price, 1)}}</span>
                                     </a>
                                 </div>
                             </div>
@@ -541,58 +541,16 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js
                                         <button type="submit" id="favorite-btn"><i class="fa-solid fa-heart-o animate__animated animate__bounceIn" style="font-size: 26px;color: darkgrey"></i></button>
                                     </form>
                                 @endif
-                                @if(session('success2'))
-                                    <script>
-                                        const Toast = Swal.mixin({
-                                            toast: true,
-                                            position: 'top-end',
-                                            showConfirmButton: false,
-                                            timer: 3000,
-                                            timerProgressBar: true,
-                                            didOpen: (toast) => {
-                                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                            }
-                                        })
 
-                                        Toast.fire({
-                                            icon: 'success',
-                                            title: '{{session("success2")}}'
-                                        })
-                                    </script>
-                                @endif
-                                @if(session('delete'))
-                                    <script>
-                                        const Toast = Swal.mixin({
-                                            toast: true,
-                                            position: 'top-end',
-                                            showConfirmButton: false,
-                                            timer: 3000,
-                                            timerProgressBar: true,
-                                            didOpen: (toast) => {
-                                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                            }
-                                        })
-
-                                        Toast.fire({
-                                            icon: 'success',
-                                            title: '{{session("delete")}}'
-                                        })
-                                    </script>
-                                @endif
-
-                                <a href="{{route('detailannonce',['id'=>$annonces->id])}}" style="margin-top: 13px">
-                                    <i class="fa-solid fa-circle-info" style="font-size: 26px;"></i>
-                                </a>
                             </div>
                         </div>
                     </div>
-
                 @endforeach
             </div>
         </div>
     </section>
+
+    <br>
     <section class="trending-podcast-section section-padding pt-0">
         <div class="container">
             <div class="row">
@@ -601,191 +559,108 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js
                         <h4 class="section-title">your projects</h4>
                     </div>
                 </div>
-
+@foreach($postes as $postes)
                 <div class="col-lg-4 col-12 mb-4 mb-lg-0">
                     <div class="custom-block custom-block-full">
                         <div class="custom-block-image-wrap">
                             <a href="detail-page.html">
-                                <img src="images/podcast/27376480_7326766.jpg" class="custom-block-image img-fluid" alt="">
+                                <img src="{{asset('uploads/poste/'.$postes->image)}}" class="custom-block-image img-fluid" alt="">
                             </a>
                         </div>
-
                         <div class="custom-block-info">
                             <h5 class="mb-2">
                                 <a href="detail-page.html">
-                                    Vintage Show
+                                    {{$postes->title}}
                                 </a>
                             </h5>
 
                             <div class="profile-block d-flex">
-                                <img src="images/profile/woman-posing-black-dress-medium-shot.jpg" class="profile-block-image img-fluid" alt="">
+                                <img src="{{asset('uploads/photouser/'.$postes->img_user)}}" class="profile-block-image img-fluid" alt="">
 
-                                <p>Elsa
-                                    <strong>Influencer</strong></p>
+                                <p>{{$postes->name_user}}
+                                    <strong>{{$postes->bio_user}}</strong></p>
                             </div>
 
-                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
+                            <p class="mb-0" style="position: relative;right: 13px;top: 13px">{{$postes->description}}</p>
+                            <button type="button" class="btn btn-warning" style="margin-top: 23px">{{$postes->category}}</button>
+                            <button type="button" class="btn btn-warning" style="margin-top: 23px">{{$postes->sous_category}}</button>
+                            <hr>
                             <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                <a href="#" class="bi-headphones me-1">
-                                    <span>100k</span>
-                                </a>
-
-                                <a href="#" class="bi-heart me-1">
-                                    <span>2.5k</span>
-                                </a>
-
-                                <a href="#" class="bi-chat me-1">
-                                    <span>924k</span>
+                                <a style="color: #a8ccfb">
+                                    <span style="color: black"><span style="color: black;font-family: 'Trebuchet MS';font-size: small">Starting At :</span><i class="fa-solid fa-dollar-sign" style="color: #0983b7"></i>{{substr($postes->price, 1)}}</span>
                                 </a>
                             </div>
-                        </div>
-
-                        <div class="social-share d-flex flex-column ms-auto">
-                            <a href="#" class="badge ms-auto">
-                                <i class="bi-heart"></i>
-                            </a>
-
-                            <a href="#" class="badge ms-auto">
-                                <i class="bi-bookmark"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                    <div class="custom-block custom-block-full">
-                        <div class="custom-block-image-wrap">
-                            <a href="detail-page.html">
-                                <img src="images/podcast/27670664_7369753.jpg" class="custom-block-image img-fluid" alt="">
-                            </a>
-                        </div>
-
-                        <div class="custom-block-info">
-                            <h5 class="mb-2">
-                                <a href="detail-page.html">
-                                    Vintage Show
-                                </a>
-                            </h5>
-
-                            <div class="profile-block d-flex">
-                                <img src="images/profile/cute-smiling-woman-outdoor-portrait.jpg" class="profile-block-image img-fluid" alt="">
-
-                                <p>
-                                    Taylor
-                                    <img src="images/verified.png" class="verified-image img-fluid" alt="">
-                                    <strong>Creator</strong>
-                                </p>
-                            </div>
-
-                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                            <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                <a href="#" class="bi-headphones me-1">
-                                    <span>100k</span>
-                                </a>
-
-                                <a href="#" class="bi-heart me-1">
-                                    <span>2.5k</span>
-                                </a>
-
-                                <a href="#" class="bi-chat me-1">
-                                    <span>924k</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="social-share d-flex flex-column ms-auto">
-                            <a href="#" class="badge ms-auto">
-                                <i class="bi-heart"></i>
-                            </a>
-
-                            <a href="#" class="badge ms-auto">
-                                <i class="bi-bookmark"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-12">
-                    <div class="custom-block custom-block-full">
-                        <div class="custom-block-image-wrap">
-                            <a href="detail-page.html">
-                                <img src="images/podcast/12577967_02.jpg" class="custom-block-image img-fluid" alt="">
-                            </a>
-                        </div>
-
-                        <div class="custom-block-info">
-                            <h5 class="mb-2">
-                                <a href="detail-page.html">
-                                    Daily Talk
-                                </a>
-                            </h5>
-
-                            <div class="profile-block d-flex">
-                                <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg" class="profile-block-image img-fluid" alt="">
-
-                                <p>
-                                    William
-                                    <img src="images/verified.png" class="verified-image img-fluid" alt="">
-                                    <strong>Vlogger</strong></p>
-                            </div>
-
-                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                            <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                                <a href="#" class="bi-headphones me-1">
-                                    <span>100k</span>
-                                </a>
-
-                                <a href="#" class="bi-heart me-1">
-                                    <span>2.5k</span>
-                                </a>
-
-                                <a href="#" class="bi-chat me-1">
-                                    <span>924k</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="social-share d-flex flex-column ms-auto">
-                            <a href="#" class="badge ms-auto">
-                                <i class="bi-heart"></i>
-                            </a>
-
-                            <a href="#" class="badge ms-auto">
-                                <i class="bi-bookmark"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>
     </section>
 
-    @if (session('status'))
-        <script>
-            Swal.fire(
-                'Good job!',
-                'Your data has been registered successfully!',
-                'success'
-            )
-        </script>
-    @endif
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        </script>
-    @endif
-</x-freelancer-layout>
 
+</x-freelancer-layout>
+@if(session('success2'))
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: '{{session("success2")}}'
+        })
+    </script>
+@endif
+@if(session('delete'))
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: '{{session("delete")}}'
+        })
+    </script>
+@endif
+@if (session('status'))
+    <script>
+        Swal.fire(
+            'Good job!',
+            'Your data has been registered successfully!',
+            'success'
+        )
+    </script>
+@endif
+@if (session('success'))
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+@endif
 @if(Auth::user()->categorie==null)
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

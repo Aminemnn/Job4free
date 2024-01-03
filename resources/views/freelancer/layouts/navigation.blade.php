@@ -1,11 +1,8 @@
 <!-- page empty -->
 <!doctype html>
 <html lang="en" data-layout="horizontal" data-layout-style="" data-layout-position="fixed" data-topbar="light">
-
-
 <!-- Mirrored from themesbrand.com/velzon/html/default/layouts-horizontal.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 04 Apr 2023 04:14:23 GMT -->
 <head>
-
     <meta charset="utf-8" />
     <title>Horizontal Layout | Velzon - Admin & Dashboard Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,24 +10,25 @@
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset('FreeAssets/images/favicon.ico')}}">
-
     <!-- plugin css -->
     <link href="{{asset('FreeAssets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- App favicon -->
+    <link rel="shortcut icon"  href="{{asset('FreeAssets/images/favicon.ico')}}">
+    <!-- plugin css -->
+    <link href="{{asset('FreeAssets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- Layout config Js -->
-
     <!-- Bootstrap Css -->
-
+    <link href="{{asset('FreeAssets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
     <link href="{{asset('FreeAssets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{asset('FreeAssets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{asset('FreeAssets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-
 <body>
 <!-- Begin page -->
 <div id="layout-wrapper">
@@ -479,7 +477,7 @@
                     <div class="dropdown ms-sm-3 header-item topbar-user">
                         <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="d-flex align-items-center">
-                                <img class="rounded-circle header-profile-user" src={{asset("../../../uploads/photouser/".Auth::user()->image)}} alt="Header Avatar">
+                                <img class="rounded-circle header-profile-user" src={{asset("../../../uploads/photouser/".Auth::user()->image)}} alt="Header" Avatar>
                                 <span class="text-start ms-xl-2">
                                     <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{Auth::user()->name}}</span>
                                     <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{Auth::user()->role}}</span>
@@ -1622,16 +1620,11 @@
 
 </div>
 <!-- END layout-wrapper -->
-
-
-
 <!--start back-to-top-->
 <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
     <i class="ri-arrow-up-line"></i>
 </button>
 <!--end back-to-top-->
-
-<!--preloader-->
 <div id="preloader">
     <div id="status">
         <div class="spinner-border text-primary avatar-sm" role="status">
@@ -1639,12 +1632,8 @@
         </div>
     </div>
 </div>
-
-
-
+<!--preloader-->
 <!-- Theme Settings -->
-
-
 <!-- JAVASCRIPT -->
 <script src="{{asset('FreeAssets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('FreeAssets/libs/simplebar/simplebar.min.js')}}"></script>
@@ -1703,7 +1692,7 @@
                 }
             });
     });
-    },1000);
+    },3000);
 </script>
 <script>
     setInterval(function () {
@@ -1725,7 +1714,7 @@
                 }
             });
         });
-    },1000);
+    },3000);
 </script>
 <script>
     setInterval(function () {
@@ -1768,7 +1757,7 @@
                 }
             });
         });
-    },1000);
+    },3000);
 </script>
 <script>
     setInterval(function () {
@@ -1790,7 +1779,7 @@
                 }
             });
         });
-    },1000);
+    },3000);
 
 </script>
 <script>

@@ -47,6 +47,7 @@ class CreateContratsTable extends Migration
             $table->string('payment_details');
             $table->string('card_holder_name');
             $table->integer('number_card');
+            $table->string('cancel');
             $table->timestamps();
         });
     }

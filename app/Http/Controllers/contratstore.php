@@ -86,6 +86,7 @@ class contratstore extends Controller
         $contrat->payment_details=$payement_details;
         $contrat->card_holder_name=$card_holder_name;
         $contrat->number_card=$number_card;
+        $contrat->cancel='false';
         $contrat->save();
 DB::table('orders')->where('id',$request->input('id'))->update(['etat'=>'Accept']);
 $notify=new notiffication();
@@ -93,7 +94,7 @@ $notify->id_expediteur=Auth::user()->id;
 $notify->name_expediteur=Auth::user()->name;
 $notify->img_expedietur=Auth::user()->image;
 $notify->id_destinateur=$id_freelancer;
-$notify->message=Auth::user()->name." to accept your proposal";
+$notify->message=Auth::user()->name." To Accept Your Proposal";
 $notify->read="false";
 $notify->save();
         return redirect('client/historiquepropostion')->with("contrat_success","he send the contract to freelancer with success");

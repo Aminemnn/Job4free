@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'client' => \App\Http\Middleware\Client::class,
         'freelancer' => \App\Http\Middleware\Freelancer::class,
         'disable_back' => \App\Http\Middleware\DisableBackButton::class,
+
     ];
 }

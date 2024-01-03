@@ -29,6 +29,7 @@ class CreateAnnoncesTable extends Migration
             $table->bigInteger('id_user');
             $table->string('name_user');
             $table->string('img_user');
+            $table->bigInteger('views');
             $table->timestamps();
         });
     }

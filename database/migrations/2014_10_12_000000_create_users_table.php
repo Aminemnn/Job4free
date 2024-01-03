@@ -26,13 +26,18 @@ class CreateUsersTable extends Migration
             $table->string('sous_categorie ')->nullable();
             $table->string('country')->nullable();
             $table->string('ville')->nullable();
-            $table->string('adresse');
-            $table->integer('codepostal');
-            $table->string('type');
-            $table->string('Other');
-            $table->integer('phone');
-            $table->string('image');
-            $table->string('bio');
+            $table->string('adresse')->nullable();
+            $table->integer('codepostal')->nullable();
+            $table->string('type')->nullable();
+            $table->string('Other')->nullable();
+            $table->integer('phone')->nullable();
+            $table->string('image')->nullable();
+            $table->string('bio')->nullable();
+            $table->string('coverture_img')->nullable();
+            $table->string('github')->nullable();
+            $table->string('website')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('linkedin')->nullable();
 
         });
     }

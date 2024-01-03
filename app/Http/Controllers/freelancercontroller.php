@@ -13,8 +13,8 @@ class freelancercontroller extends Controller
 {
     public function dashboard(){
         $categories = DB::select('SELECT * FROM categorie');
-        $annonces=DB::select('SELECT * FROM annonces');
-        $favoris=DB::select('SELECT * FROM favoris_freelancers');
+        $annonces=DB::table('annonces')->orderBy('id','desc')->get();
+        $favoris=DB::table('favoris_freelancers')->where('id_user',Auth::user()->id)->get();
         $graphics_design = DB::table('souscategorie')->where('name_cat','Graphics & Design')->get();
         $digital_marketing = DB::table('souscategorie')->where('name_cat','Digital Marketing')->get();
         $writing_translation = DB::table('souscategorie')->where('name_cat','Writing & Translation')->get();
@@ -23,7 +23,7 @@ class freelancercontroller extends Controller
         $programming_tech = DB::table('souscategorie')->where('name_cat','Programming & Tech')->get();
         $business = DB::table('souscategorie')->where('name_cat','Business')->get();
         $life_style = DB::table('souscategorie')->where('name_cat','Lifestyle')->get();
-
+        $postes=DB::table('postes')->where('user_id',Auth::user()->id)->get();
         $graphics_design2 = DB::table('souscategorie')->where('name_cat','Graphics & Design')->get();
         $digital_marketing2 = DB::table('souscategorie')->where('name_cat','Digital Marketing')->get();
         $writing_translation2 = DB::table('souscategorie')->where('name_cat','Writing & Translation')->get();
@@ -53,7 +53,8 @@ class freelancercontroller extends Controller
             ->with('business2',$business2)
             ->with('life_style2',$life_style2)
             ->with('annonces',$annonces)
-            ->with('favoris',$favoris);
+            ->with('favoris',$favoris)
+            ->with('postes',$postes);
 
     }
 public function store(Request $request){

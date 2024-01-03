@@ -13,13 +13,14 @@ class favoris_client extends Model
         'category',
         'sous_category',
         'image',
-        'etat',
         'price',
         'description',
         'user_id',
         'name_user',
         'img_user',
         'id_destinateur',
-        'id_poste'
+        'id_poste',
+        'name_freelancer',
+        'img_freelancer'
     ];
 }

@@ -19,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- plugin css -->
     <link href="{{asset('FreeAssets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Layout config Js -->
     <script src="{{asset('FreeAssets/js/layout.js')}}"></script>
@@ -35,19 +36,6 @@
 
 <body>
 <x-freelancer-layout>
-<!-- Begin page -->
-
-    <!-- Left Sidebar End -->
-    <!-- Vertical Overlay-->
-
-
-    <!-- ============================================================== -->
-    <!-- Start right Content here -->
-    <!-- ============================================================== -->
-
-
-
-
             <!-- container-fluid -->
             <div class="card">
                 <div class="card-body">
@@ -58,13 +46,14 @@
                                     <button class="btn btn-ghost-primary btn-icon dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="ri-more-fill align-middle fs-16"></i>
                                     </button>
+
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item view-item-btn" href="javascript:void(0);"><i class="ri-eye-fill align-bottom me-2 text-muted"></i>View</a></li>
                                         <li><a class="dropdown-item edit-item-btn" href="#showModal" data-bs-toggle="modal"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
                                         <li><a class="dropdown-item remove-item-btn" data-bs-toggle="modal" href="#deleteRecordModal"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
                                     </ul>
                                 </div>
-                                <span class="badge badge-soft-info mb-3 fs-12"><i class="ri-eye-line me-1 align-bottom"></i> 8,634 people views this</span>
+                                <span class="badge badge-soft-info mb-3 fs-12"><i class="ri-eye-line me-1 align-bottom"></i> {{$annonce->first()->views}} people views this</span>
                                 <h4>{{$annonce->first()->title}}</h4>
                                 <div class="hstack gap-3 flex-wrap">
                                     <div class="text-muted">Client : <a href="{{route('userdetail',['id'=>$annonce->first()->id_user])}}" class="text-primary fw-medium">{{$annonce->first()->name_user}}</a></div>
@@ -79,7 +68,7 @@
                                     <div class="p-2 border border-dashed rounded text-center">
                                         <div>
                                             <p class="text-muted fw-medium mb-1">Price :</p>
-                                            <h5 class="fs-17 text-success mb-0">{{$annonce->first()->price}}</h5>
+                                            <h5 class="fs-17 text-success mb-0"><i class="fa-solid fa-dollar-sign" style="color: #0983b7"></i>{{$annonce->first()->price}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +152,7 @@
                                                 <p class="mb-2"><i class="mdi mdi-circle-medium me-1 text-muted align-middle"></i>Category : <span style="color: #4b9bff">{{$annonce->first()->catgorie}}</span></p>
                                                 <p class="mb-2"><i class="mdi mdi-circle-medium me-1 text-muted align-middle"></i>Sub Category : <span style="color: #4b9bff">{{$annonce->first()->sous_categorie }}</span></p>
                                                 <p class="mb-2"><i class="mdi mdi-circle-medium me-1 text-muted align-middle"></i>Price Category : <span style="color: #4b9bff">{{$annonce->first()->price_categorie }}</span></p>
-                                                <p class="mb-0"><i class="mdi mdi-circle-medium me-1 text-muted align-middle"></i>Price : <span style="color: #4b9bff">{{$annonce->first()->price }}</span></p>
+                                                <p class="mb-0"><i class="mdi mdi-circle-medium me-1 text-muted align-middle"></i>Price : <span style="color: #4b9bff"><i class="fa-solid fa-dollar-sign" style="color: #0983b7"></i>{{$annonce->first()->price }}</span></p>
                                                 <p class="mb-0"><i class="mdi mdi-circle-medium me-1 text-muted align-middle"></i>Type Price :<span style="color: #4b9bff">{{$annonce->first()->type_price }}</span></p>
                                                 <p class="mb-0"><i class="mdi mdi-circle-medium me-1 text-muted align-middle"></i>Value :<span style="color: #4b9bff">@if($annonce->first()->semaine==null) {{$annonce->first()->date}}@else{{$annonce->first()->semaine}}@endif</span></p>
                                             </div>
@@ -171,11 +160,21 @@
                                     </div>
                                 </div>
                             </div>
+                            @php
+                                $existing_order = App\Models\order::where('id_user', Auth::user()->id)
+                                    ->where('id_projet',$annonce->first()->id)
+                                    ->first();
+                            @endphp
                                @if($annonce->first()->propostion==$annonce->first()->nombre_proposition)
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" disabled style="margin-top: 40px;width: 100%;background-color: #4b9bff;border-color: #4b9bff">
                                     Send Request
                                 </button>
                                    <p class="text-danger">You Cannot Send an Offer To This Project Because its owner gets the Specified number of offers</p>
+                            @elseif($existing_order)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" disabled style="margin-top: 40px;width: 100%;background-color: #4b9bff;border-color: #4b9bff">
+                                    Send Request
+                                </button>
+                                <p class="text-danger">You have already submitted an order for this project.</p>
                             @else
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="margin-top: 40px;width: 100%;background-color: #4b9bff;border-color: #4b9bff">
                                     Send Request
@@ -207,7 +206,7 @@
                                                     <option value="@if($annonce->first()->price_categorie=='Fixed Price') Per /hour @else Fixed Price @endif">@if($annonce->first()->price_categorie=="Fixed Price") Per /hour @else Fixed Price @endif</option>
                                                 </select>
                                                 <br>
-                                                <input type="text" class="form-control" name="price" id="price" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="{{$annonce->first()->price}}" data-type="currency" placeholder="$1,000,000.00">
+                                                <input type="number" class="form-control" name="price" id="price" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="{{$annonce->first()->price}}" data-type="currency" placeholder="$1,000,000.00">
                                                 <br>
                                                 <select class="form-select" aria-label="Default select example" name="type_price" id="Price_type" required onchange="change3()">
                                                     <option value="{{$annonce->first()->type_price }}" selected>{{$annonce->first()->type_price }}</option>
@@ -248,42 +247,35 @@
                                         </div>
                                     </div>
                                 </div>
+                            @if(session('order_success'))
+                                <script>
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        didOpen: (toast) => {
+                                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                        }
+                                    })
+
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: '{{session('order_success')}}'
+                                    })
+                                </script>
+                            @endif
 
                         </div>
                     </div>
+
                     <!--end col-->
                 </div>
                 <!--end row-->
             </div>
-@if(session('Order-success'))
-    <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
 
-        Toast.fire({
-            icon: 'success',
-            title: '{{session('Order-success')}}'
-        })
-    </script>
-    @endif
-    @if(session('Order-error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '{{session('Order-error')}}',
-            })
-        </script>
-    @endif
 </x-freelancer-layout>
 
 <!-- JAVASCRIPT -->
@@ -412,7 +404,5 @@
 
 </script>
 </body>
-
-
 <!-- Mirrored from themesbrand.com/velzon/html/default/layouts-horizontal.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 04 Apr 2023 04:14:23 GMT -->
 </html>

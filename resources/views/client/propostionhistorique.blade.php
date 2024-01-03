@@ -1,15 +1,10 @@
 <!-- Proposal history page -->
 <!doctype html>
 <html lang="en" data-layout="horizontal" data-layout-style="" data-layout-position="fixed" data-topbar="light">
-
-
-<!-- Mirrored from themesbrand.com/velzon/html/default/layouts-horizontal.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 04 Apr 2023 04:14:23 GMT -->
 <head>
 
     <meta charset="utf-8" />
     <title>Proposal history</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset('FreeAssets/images/favicon.ico')}}">
@@ -31,8 +26,10 @@
 </head>
 
 <body>
-<x-freelancer-layout>
+<x-client-layout>
+
 <!-- Begin page -->
+
 <div id="layout-wrapper" >
     <div class="main-content">
 
@@ -73,51 +70,18 @@
                                     <div class="row g-3">
                                         <div class="col-xxl-5 col-sm-6">
                                             <div class="search-box">
-                                                <input type="text" class="form-control search" placeholder="Search for Proposal ID, customer, Proposal status or something...">
+                                                <input type="text" class="form-control search"  id="myInput" onkeyup="myFunction()" placeholder="Search for Proposal ID, customer or date " >
                                                 <i class="ri-search-line search-icon"></i>
                                             </div>
                                         </div>
                                         <!--end col-->
-                                        <div class="col-xxl-2 col-sm-6">
-                                            <div>
-                                                <input type="text" class="form-control" data-provider="flatpickr" data-date-format="d M, Y" data-range-date="true" id="demo-datepicker" placeholder="Select date">
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
-                                        <div class="col-xxl-2 col-sm-4">
-                                            <div>
-                                                <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idStatus">
-                                                    <option value="">Status</option>
-                                                    <option value="all" selected>All</option>
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="Inprogress">Inprogress</option>
-                                                    <option value="Cancelled">Cancelled</option>
-                                                    <option value="Returns">Returns</option>
-                                                    <option value="Delivered">Delivered</option>
-                                                </select>
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
-                                        <div class="col-xxl-2 col-sm-4">
-                                            <div>
-                                                <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idPayment">
-                                                    <option value="">Select Payment</option>
-                                                    <option value="all" selected>All</option>
-                                                    <option value="Mastercard">Mastercard</option>
-                                                    <option value="Paypal">Paypal</option>
-                                                    <option value="Visa">Visa</option>
-                                                    <option value="COD">COD</option>
-                                                </select>
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
-                                        <div class="col-xxl-1 col-sm-4">
-                                            <div>
-                                                <button type="button" class="btn btn-primary w-100" onclick="SearchData();"> <i class="ri-equalizer-fill me-1 align-bottom"></i>
-                                                    Filters
-                                                </button>
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
                                     </div>
                                     <!--end row-->
@@ -137,7 +101,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link py-3 Pickups" data-bs-toggle="tab" id="Pickups" href="#pickups" role="tab" aria-selected="false"  >
+                                            <a class="nav-link py-3 Pickups" data-bs-toggle="tab" id="Pickups" href="#pickups" role="tab" aria-selected="false" onclick="progress()" >
                                                 <i class="ri-truck-line me-1 align-bottom"></i> In Progress <span class="badge bg-danger align-middle ms-1">2</span>
                                             </a>
                                         </li>
@@ -173,10 +137,10 @@
                                                 <th scope="row">
                                                     #
                                                 </th>
-                                                <td class="id"><a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">{{$proposition->id}}</a></td>
-                                                <td class="customer_name">{{$proposition->name_user}}</td>
-                                                <td class="product_name">{{$proposition->title_projet}}</td>
-                                                <td class="date">{{$proposition->created_at}}</td>
+                                                <td class="id" data-search="{{$proposition->id}}"><a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">{{$proposition->id}}</a></td>
+                                                <td class="customer_name" data-search="{{$proposition->name_user}}">{{$proposition->name_user}}</td>
+                                                <td class="product_name" >{{$proposition->title_projet}}</td>
+                                                <td class="date" data-search="{{$proposition->created_at}}">{{$proposition->created_at}}</td>
                                                 <td class="amount">{{$proposition->price}}</td>
                                                 <td class="payment">{{$proposition->price_categorie}}</td>
                                                     <td class="payment">{{$proposition->type_price}}</td>
@@ -188,37 +152,29 @@
                                                     <form action="{{route('refuser')}}" method="post" style="display: inline-block"> @csrf
                                                         @if($proposition->etat=='Refuser' || $proposition->etat=='Accept')
                                                             <button type="submit" value="{{$proposition->id}}" name="refuser" class="btn btn-danger" disabled>Refuse</button>
-                                                        @else <button type="submit" value="{{$proposition->id}}" name="refuser" class="btn btn-danger">Refuse</button>@endif</form>
+                                                        @else <input type="hidden" name="id_destinateur" value="{{$proposition->id_user}}">
+                                                            <button type="submit" value="{{$proposition->id}}" name="refuser" class="btn btn-danger">Refuse</button>@endif
+                                                    </form>
                                                 </td>
                                             </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        @if(session('refuser'))
-                                            <script>
-                                                const Toast = Swal.mixin({
-                                                    toast: true,
-                                                    position: 'top-end',
-                                                    showConfirmButton: false,
-                                                    timer: 3000,
-                                                    timerProgressBar: true,
-                                                    didOpen: (toast) => {
-                                                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                                    }
-                                                })
 
-                                                Toast.fire({
-                                                    icon: 'success',
-                                                    title: '{{session("refuser")}}'
-                                                })
-                                            </script>
-                                        @endif
                                         @if(session('contrat_success'))
                                             <script>
                                                 Swal.fire(
                                                     'Contrat Send !',
                                                     '{{session('contrat_success')}}',
+                                                    'success'
+                                                )
+                                            </script>
+                                        @endif
+                                        @if(session('refuser_success'))
+                                            <script>
+                                                Swal.fire(
+                                                    'Refuser',
+                                                    '{{session('refuser_success')}}',
                                                     'success'
                                                 )
                                             </script>
@@ -229,17 +185,6 @@
                                                 <h5 class="mt-2">Sorry! No Result Found</h5>
                                                 <p class="text-muted">We've searched more than 150+ Orders We did not find any orders for you search.</p>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        <div class="pagination-wrap hstack gap-2">
-                                            <a class="page-item pagination-prev disabled" href="#">
-                                                Previous
-                                            </a>
-                                            <ul class="pagination listjs-pagination mb-0"></ul>
-                                            <a class="page-item pagination-next" href="#">
-                                                Next
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -278,7 +223,7 @@
     <!-- end main content-->
 
 </div>
-</x-freelancer-layout>
+</x-client-layout>
 
 <!-- JAVASCRIPT -->
 <script src="{{asset('FreeAssets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -300,7 +245,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- App js -->
-<script src="{{asset('Freeassets/js/app.js')}}"></script>
+<script src="{{asset('FreeAssets/js/app.js')}}"></script>
 <script>
     function accept() {
         $(document).ready(function() {
@@ -401,6 +346,7 @@
                             accept+='<button type="submit" value="'+data[i].id+'" name="refuser" class="btn btn-danger" disabled>Refuse</button>'
                         }else {
                             accept+='<form action="{{route('refuser')}}" method="post" style="display: inline-block"> @csrf'
+                            accept+='<input type="hidden" name="id_destinateur" value="'+data[i].id_user+'">'
                             accept+='<button type="submit" value="'+data[i].id+'" name="refuser" class="btn btn-danger">Refuse</button>'
                         }
                         accept+='</td>'
@@ -463,6 +409,81 @@
             });
         });
     }
+</script>
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("list");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td_id = tr[i].querySelector('td.id');
+            td_customer = tr[i].querySelector('td.customer_name');
+            td_date = tr[i].querySelector('td.date');
+            if (td_id || td_customer || td_date) {
+                txtValue_id = td_id.getAttribute('data-search');
+                txtValue_customer = td_customer.textContent || td_customer.innerText;
+
+                txtValue_date = td_date.getAttribute('data-search');
+                txtValue = txtValue_id + txtValue_customer  + txtValue_date;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    function progress() {
+        $(document).ready(function() {
+            $.ajax({
+                url: '/progress_client',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    var accept='<thead class="text-muted table-light">'
+                    accept+='<tr class="text-uppercase">'
+                    accept+='<th scope="col" style="width: 25px;">'
+                    accept+='<div class="form-check">'
+                    accept+='<input class="form-check-input" type="checkbox" id="checkAll" value="option">'
+                    accept+='</div>'
+                    accept+='</th>'
+                    accept+='<th class="sort" data-sort="id">Proposal ID</th>'
+                    accept+='<th class="sort" data-sort="customer_name">Customer</th>'
+                    accept+='<th class="sort" data-sort="product_name">Title</th>'
+                    accept+='<th class="sort" data-sort="date">Order Date</th>'
+                    accept+='<th class="sort" data-sort="amount">Amount</th>'
+                    accept+='<th class="sort" data-sort="payment">Payment Method</th>'
+                    accept+='<th class="sort" data-sort="status"> Status</th>'
+                    accept+='</tr>'
+                    accept+='</thead>';
+                    for (var i=0;i< data.length;i++) {
+                        accept+= '<tr>'
+                        accept+='<th scope="row">#</th>'
+                        accept+='<td class="id"><a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">' +data[i].id +'</a></td>'
+                        accept+='<td class="customer_name">' +data[i].name_user +'</td>'
+                        accept+='<td class="product_name">' +data[i].title_projet +'</td>'
+                        accept+='<td class="date"> '+data[i].created_at +'</td>'
+                        accept+='<td class="amount">'+data[i].price +'</td>'
+                        accept+='<td class="payment">'+data[i].price_categorie+'</td>'
+                        accept+='<td class="status">'
+                        accept+= '<span class="badge badge-soft-success text-uppercase">'+data[i].etat+'<i class="fa-solid fa-check" style="margin-left: 5px"></i></span>'
+                        accept+='</td>'
+                        accept+='</tr>'
+                    }
+                    $("#orderTable").html(accept);
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    }
+
 </script>
 </body>
 <!-- Mirrored from themesbrand.com/velzon/html/default/layouts-horizontal.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 04 Apr 2023 04:14:23 GMT -->

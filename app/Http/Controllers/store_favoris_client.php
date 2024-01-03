@@ -20,10 +20,12 @@ class store_favoris_client extends Controller
         $etat=$request->input('etat');
         $description=$request->input('description');
         $id_destinateur=$request->input('user_id');
+        $name_freelancer=$request->input('name_freelancer');
+        $img_freelancer=$request->input('img_freelancer');
+
         $id_user=Auth::user()->id;
         $name_user=Auth::user()->name;
         $img_user=Auth::user()->image;
-
         $favoris_client=new favoris_client();
         $favoris_client->id_poste=$id_ann;
         $favoris_client->title=$title;
@@ -31,12 +33,13 @@ class store_favoris_client extends Controller
         $favoris_client->sous_category=$sous_category;
         $favoris_client->image=$image;
         $favoris_client->price=$price;
-        $favoris_client->etat=$etat;
         $favoris_client->description=$description;
         $favoris_client->user_id=$id_user;
         $favoris_client->name_user=$name_user;
         $favoris_client->img_user=$img_user;
         $favoris_client->id_destinateur=$id_destinateur;
+        $favoris_client->name_freelancer=$name_freelancer;
+        $favoris_client->img_freelancer=$img_freelancer;
         $favoris_client->save();
         return redirect('client/dashboard')->with("success2","The item saved in: My first list.");
     }

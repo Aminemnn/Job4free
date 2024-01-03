@@ -27,6 +27,8 @@ class CreateFavorisClientsTable extends Migration
             $table->string('name_user');
             $table->string('img_user');
             $table->string('etat');
+            $table->string('name_freelancer');
+            $table->string('img_freelancer');
             $table->timestamps();
         });
     }

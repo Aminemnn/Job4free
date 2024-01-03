@@ -73,51 +73,18 @@
                                     <div class="row g-3">
                                         <div class="col-xxl-5 col-sm-6">
                                             <div class="search-box">
-                                                <input type="text" class="form-control search" placeholder="Search for Proposal ID, customer, Proposal status or something...">
+                                                <input type="text" class="form-control search"  id="myInput" onkeyup="myFunction()" placeholder="Search for Proposal ID, customer, status or date " >
                                                 <i class="ri-search-line search-icon"></i>
                                             </div>
                                         </div>
                                         <!--end col-->
-                                        <div class="col-xxl-2 col-sm-6">
-                                            <div>
-                                                <input type="text" class="form-control" data-provider="flatpickr" data-date-format="d M, Y" data-range-date="true" id="demo-datepicker" placeholder="Select date">
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
-                                        <div class="col-xxl-2 col-sm-4">
-                                            <div>
-                                                <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idStatus">
-                                                    <option value="">Status</option>
-                                                    <option value="all" selected>All</option>
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="Inprogress">Inprogress</option>
-                                                    <option value="Cancelled">Cancelled</option>
-                                                    <option value="Returns">Returns</option>
-                                                    <option value="Delivered">Delivered</option>
-                                                </select>
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
-                                        <div class="col-xxl-2 col-sm-4">
-                                            <div>
-                                                <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idPayment">
-                                                    <option value="">Select Payment</option>
-                                                    <option value="all" selected>All</option>
-                                                    <option value="Mastercard">Mastercard</option>
-                                                    <option value="Paypal">Paypal</option>
-                                                    <option value="Visa">Visa</option>
-                                                    <option value="COD">COD</option>
-                                                </select>
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
-                                        <div class="col-xxl-1 col-sm-4">
-                                            <div>
-                                                <button type="button" class="btn btn-primary w-100" onclick="SearchData();"> <i class="ri-equalizer-fill me-1 align-bottom"></i>
-                                                    Filters
-                                                </button>
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
                                     </div>
                                     <!--end row-->
@@ -137,8 +104,8 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link py-3 Pickups" data-bs-toggle="tab" id="Pickups" href="#pickups" role="tab" aria-selected="false" >
-                                                <i class="ri-truck-line me-1 align-bottom"></i> In Progress <span class="badge bg-danger align-middle ms-1">2</span>
+                                            <a class="nav-link py-3 Pickups" data-bs-toggle="tab" id="Pickups" href="#pickups" role="tab" aria-selected="false" onclick="progress()">
+                                                <i class="ri-truck-line me-1 align-bottom"></i> In Progress <span class="badge bg-danger align-middle ms-1" id="nb_progress"></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
@@ -170,13 +137,13 @@
                                                 @foreach($proposition as $proposition)
                                                     <tr>
                                                     <th scope="row">#</th>
-                                                    <td class="id"><a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">{{$proposition->id}}</a></td>
-                                                    <td class="customer_name">{{$proposition->name_user}}</td>
+                                                    <td class="id" data-search="{{$proposition->id}}"><a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">{{$proposition->id}}</a></td>
+                                                    <td class="customer_name" data-search="{{$proposition->name_user}}">{{$proposition->name_user}}</td>
                                                     <td class="product_name">{{$proposition->title_projet}}</td>
-                                                    <td class="date">{{$proposition->created_at}}</td>
+                                                    <td class="date" data-search="{{$proposition->created_at}}">{{$proposition->created_at}}</td>
                                                     <td class="amount">{{$proposition->price}}</td>
                                                     <td class="payment">{{$proposition->price_categorie}}</td>
-                                                    <td class="status">
+                                                    <td class="status" data-search="{{$proposition->etat}}">
                                                           @if($proposition->etat=='Refuser')
                                                             <span class="badge badge-soft-danger text-uppercase">
                                                                 Refuser <i class="fa-solid fa-x" style="margin-left: 5px"></i>
@@ -357,7 +324,6 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    console.log("amine");
                     var accept='';
                     for (var i=0;i< data.length;i++) {
                         accept+= '<tr>'
@@ -388,6 +354,85 @@
         });
     }
 </script>
+<script>
+    function progress(){
+        $(document).ready(function() {
+            $.ajax({
+                url: '/progress',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var accept='';
+                    for (var i=0;i< data.length;i++) {
+                        accept+= '<tr>'
+                        accept+='<th scope="row">#</th>'
+                        accept+='<td class="id"><a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">' +data[i].id +'</a></td>'
+                        accept+='<td class="customer_name">' +data[i].name_user +'</td>'
+                        accept+='<td class="product_name">' +data[i].title_projet +'</td>'
+                        accept+='<td class="date"> '+data[i].created_at +'</td>'
+                        accept+='<td class="amount">'+data[i].price +'</td>'
+                        accept+='<td class="payment">'+data[i].price_categorie+'</td>'
+                        accept+='<td class="status">'
+                        if (data[i].etat=='Refuser') {
+                            accept += '<span class="badge badge-soft-danger text-uppercase">' + data[i].etat + '<i class="fa-solid fa-x" style="margin-left: 5px"></span>'
+                        }else if(data[i].etat=='Accept'){
+                            accept+= '<span class="badge badge-soft-success text-uppercase">'+data[i].etat+'<i class="fa-solid fa-check" style="margin-left: 5px"></i></span>'
+                        }else {
+                            accept += '<span class="badge badge-soft-warning text-uppercase">' + data[i].etat + '</span>'
+                        }
+                        accept+='</td>'
+                        accept+='</tr>'
+                    }
+                    $("#list").html(accept);
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/nb-progress',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+              document.getElementById('nb_progress').innerHTML=data;
+            }
+        });
+    });
+</script>
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("list");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td_id = tr[i].querySelector('td.id');
+            td_customer = tr[i].querySelector('td.customer_name');
+            td_status = tr[i].querySelector('td.status');
+            td_date = tr[i].querySelector('td.date');
+            if (td_id || td_customer || td_status || td_date) {
+                txtValue_id = td_id.getAttribute('data-search');
+                txtValue_customer = td_customer.textContent || td_customer.innerText;
+                txtValue_status = td_status.textContent || td_status.innerText;
+                txtValue_date = td_date.getAttribute('data-search');
+                txtValue = txtValue_id + txtValue_customer + txtValue_status + txtValue_date;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
 </body>
 
 
